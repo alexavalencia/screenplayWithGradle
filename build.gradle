@@ -1,0 +1,39 @@
+group 'org.example'
+version '1.0-SNAPSHOT'
+
+repositories {
+    mavenCentral()
+    jcenter()
+}
+
+buildscript {
+    repositories {
+        mavenLocal()
+        jcenter()
+    }
+    dependencies {
+        classpath("net.serenity-bdd:serenity-gradle-plugin:2.3.12")
+    }
+}
+apply plugin: 'java'
+apply plugin: 'net.serenity-bdd.aggregator'
+
+tasks.withType(JavaCompile) {
+    options.encoding = 'UTF-8'
+}
+
+dependencies {
+    implementation group: 'net.serenity-bdd', name: 'serenity-core', version: '2.4.24'
+    implementation group: 'net.serenity-bdd', name: 'serenity-junit', version: '2.4.24'
+    implementation group: 'net.serenity-bdd', name: 'serenity-cucumber', version: '1.9.39'
+    implementation group: 'net.serenity-bdd', name: 'serenity-screenplay', version: '2.4.24'
+    implementation group: 'net.serenity-bdd', name: 'serenity-screenplay-webdriver', version: '2.4.24'
+    testImplementation 'org.junit.jupiter:junit-jupiter-api:5.7.0'
+    testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.7.0'
+}
+
+test {
+    useJUnitPlatform()
+}
+
+gradle.startParameter.continueOnFailure = true
